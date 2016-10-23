@@ -71,4 +71,3 @@ class TestBoggle(unittest.TestCase):
     def test_load_dictionary(self):
         dictionary = boggle.get_dictionary('/usr/share/dict/words')
         self.assertGreater(len(dictionary), 0)
-

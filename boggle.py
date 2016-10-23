@@ -30,13 +30,17 @@ def path_to_word(grid, path):
     return ''.join([grid[p] for p in path])
 
 
+def is_a_real_word(word, dictionary):
+    return word in dictionary
+
+
 def search(grid, dictionary):
     neighbours = all_grid_neighbours(grid)
     paths = []
 
     def do_search(path):
         word = path_to_word(grid, path)
-        if word in dictionary:
+        if is_a_real_word(word, dictionary):
             paths.append(path)
         for next_pos in neighbours[path[-1]]:
             if next_pos not in path:
@@ -53,7 +57,7 @@ def search(grid, dictionary):
 
 def get_dictionary(dictionary_file):
     with open(dictionary_file) as f:
-        return [w.strip().upper() for w in f]
+        return {w.strip().upper() for w in f}
 
 
 def display_words(words):
@@ -63,7 +67,7 @@ def display_words(words):
 
 
 def main():
-    grid = make_grid(3, 3)
+    grid = make_grid(4, 4)
     dictionary = get_dictionary('/usr/share/dict/words')
     words = search(grid, dictionary)
     display_words(words)
